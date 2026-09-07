@@ -61,9 +61,9 @@ function normalizeResult(value: unknown, fallbackTitle: string): GeneratedMinute
 }
 
 export async function generateMinute(notes: string, title: string): Promise<GeneratedMinute> {
-  const baseUrl = (process.env.OLLAMA_BASE_URL || 'https://ollama.com/api').replace(/\/$/, '')
-  const apiKey = process.env.OLLAMA_API_KEY
-  const model = process.env.OLLAMA_MODEL || 'gpt-oss:120b'
+  const baseUrl = (process.env.OLLAMA_BASE_URL || 'https://ollama.com/api').trim().replace(/\/$/, '')
+  const apiKey = process.env.OLLAMA_API_KEY?.trim()
+  const model = (process.env.OLLAMA_MODEL || 'gpt-oss:120b').trim()
 
   if (baseUrl.includes('ollama.com') && !apiKey) {
     throw new Error('Falta configurar OLLAMA_API_KEY para usar Ollama Cloud.')
